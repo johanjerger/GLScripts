@@ -6,9 +6,9 @@
 
   Para los scripts detallados a continuación es necesario tener una politica de ejecución sin restricciones dentro de nuestra PowerShell, para ello, ingresar a la misma en modo administrador y ejecutar el siguiente commando:
   
-  ´´´
+  ```
     set-executionpolicy unrestricted
-  ´´´
+  ```
   
   Se nos solicitará confirmar la acción, una vez realizado esto cerramos esta terminal. Al abrir una nueva con nuestro usuario de siempre ya podremos realizar libre ejecución de los Scripts.
 
