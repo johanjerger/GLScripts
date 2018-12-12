@@ -64,6 +64,10 @@ $fileList | ForEach-Object -process {
       Move-Item $fileToNest $insertFolder -Force
       continue
     }
+    {$fileToNest -match "INSERT.jar"} {
+      Move-Item $fileToNest $insertFolder -Force
+      continue
+    }
     {$fileToNest -match "T24Updates"} {
       Move-Item $fileToNest $updatesFolder -Force
       continue
