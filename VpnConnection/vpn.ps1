@@ -27,7 +27,7 @@ switch($hostId) {
     Write-Output "Ya estas conectado a gl como $gluser`n"
   }
   wt {
-    $credential = "y`n0`n" + $wtUser + "`n" + $wtPass + "`n"
+    $credential = "y`n1`n" + $wtUser + "`n" + $wtPass + "`n"
     $credential  | &$cysco -s connect $wtUrl
     Write-Output "Ya estas conectado a wt como $wtUser`n"
   }
