@@ -111,7 +111,7 @@ if ($directoryCount.count -gt 0) {
   $bconFileList = Get-ChildItem $bconFolder
 
   $bconFileList | ForEach-Object -process {
-    $bconName       = $_.Name + "`n"
+    $bconName       = $_.Name
     $outputListFile = $bconFolder + "\LISTA"
     echo $bconName >> $outputListFile
   }
