@@ -90,15 +90,32 @@ $fileList | ForEach-Object -process {
 # Extrae las carpetas de los BCONs en caso de que haya
 
 $winrar = "C:\Program Files (x86)\WinRAR\WinRAR.exe"
-Write-Host "`nExtrayendo BCONs..."
-$bconFileList = Get-ChildItem $bconFolder
 
-$bconFileList | ForEach-Object -process {
-  $bconToExpand = $bconFolder + $_
-  $outputFolder = $bconFolder + $_.Name
-  &$winrar x -y -ibck $bconToExpand $bconFolder
-  Get-Process winrar | Wait-Process
-  Remove-Item $bconToExpand
+$directoryCount = Get-ChildItem $bconFolder | Measure-Object
+if ($directoryCount.count -gt 0) {
+
+  Write-Host "`nExtrayendo BCONs..."
+  $bconFileList = Get-ChildItem $bconFolder
+
+  $bconFileList | ForEach-Object -process {
+    $bconToExpand = $bconFolder + $_
+    $outputFolder = $bconFolder + $_.Name
+    &$winrar x -y -ibck $bconToExpand $bconFolder
+    Get-Process winrar | Wait-Process
+    Remove-Item $bconToExpand
+  }
+
+# Genera un listado de BCONs
+
+  Write-Host "`nGenerando listado..."
+  $bconFileList = Get-ChildItem $bconFolder
+
+  $bconFileList | ForEach-Object -process {
+    $bconName       = $_.Name + "`n"
+    $outputListFile = $bconFolder + "\LISTA"
+    echo $bconName >> $outputListFile
+  }
+
 }
 
 <# DEPRECADO
