@@ -101,6 +101,7 @@ $bconFileList | ForEach-Object -process {
   Remove-Item $bconToExpand
 }
 
+<# DEPRECADO
 # Extrae los archivos de los Insert
 
 Write-Host "`nExtrayendo INSERTS..."
@@ -112,6 +113,7 @@ $insertFileList | ForEach-Object -process {
   &$winrar x -y -ibck $insertToExpand $insertFolder
   Get-Process winrar | Wait-Process
 }
+#>
 
 # Desacopla los instert en una sola carpeta y elimina META-INF
 
