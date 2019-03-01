@@ -109,12 +109,13 @@ if ($directoryCount.count -gt 0) {
 
   Write-Host "`nGenerando listado..."
   $bconFileList = Get-ChildItem $bconFolder
-
+  $bconName = ""
   $bconFileList | ForEach-Object -process {
-    $bconName       = $_.Name
-    $outputListFile = $bconFolder + "\LISTA"
-    echo $bconName >> $outputListFile
+    $bconName       += $_.BaseName + "`r`n"
+    $outputListFile = $bconFolder + "\LISTA.BCON"
   }
+
+  $bconName | Out-File -FilePath $outputListFile -Encoding ASCII -NoNewLine
 
 }
 
