@@ -6,11 +6,11 @@ param (
 
 # Completar estas variables con los valores correspondientes.
 
-$glUser = "*************"
-$glPass = "*************"
+$glUser = "***********"
+$glPass = "***********"
 $glUrl  = "vpn-crr.globallogic.com"
-$wtUser = "*************"
-$wtPass = "*************"
+$wtUser = "***********"
+$wtPass = "***********"
 $wtUrl  = "201.218.224.99"
 
 $cysco = "C:\Program Files (x86)\Cisco\Cisco AnyConnect Secure Mobility Client\vpncli.exe"
