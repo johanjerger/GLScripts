@@ -6,39 +6,54 @@ param (
 
 # Completar estas variables con los valores correspondientes.
 
-$glUser = "***.***"
-$glPass = "*******"
+$glUser = "*************"
+$glPass = "*************"
 $glUrl  = "vpn-crr.globallogic.com"
-$wtUser = "*******"
-$wtPass = "*******"
+$wtUser = "*************"
+$wtPass = "*************"
 $wtUrl  = "201.218.224.99"
 
-# En caso de que exista una conexion previa, la elimina
-
-Write-Host "Abortando conexiones previas`n"
-
 $cysco = "C:\Program Files (x86)\Cisco\Cisco AnyConnect Secure Mobility Client\vpncli.exe"
-&$cysco disconnect
+
+# En caso de que exista una conexión previa, la elimina
+
+$state = &$cysco state
+if ($state -match ">> state: Connected") {
+  Write-Host "Abortando conexiones previas`n"
+  &$cysco disconnect 2>&1 | Out-Null
+}
 
 switch($hostId) {
   gl {
-    $credential = $glUser + "`n" + $glPass + "`n"
-    $credential  |  &$cysco -s connect $glUrl
-    Write-Output "Ya estas conectado a gl como $gluser`n"
+    Write-Host "Esta conexion requiere un segundo factor de autenticacion."
+    Write-Host "El mismo debe ser generado mediante la aplicacion Duo Mobile o solicitud de correo."
+    $glDual = Read-Host -Prompt 'Ingrese segundo factor'
+    Write-host "Conectando..."
+    $credential = $glUser + "`n" + $glPass + "`n" + $glDual + "`n"
+    $credential  |  &$cysco -s connect $glUrl 2>&1 | Out-Null
   }
   wt {
-    $credential = "y`n1`n" + $wtUser + "`n" + $wtPass + "`n"
-    $credential  | &$cysco -s connect $wtUrl
-    Write-Output "Ya estas conectado a wt como $wtUser`n"
+    Write-host "Conectando..."
+    $credential = "y`n7`n" + $wtUser + "`n" + $wtPass + "`n"
+    $credential  | &$cysco -s connect $wtUrl 2>&1 | Out-Null
   }
   disconnect {
-    Write-Output "Desconectado."
+    Write-Output "Se encuentra desconectado."
   }
   default {
-    Write-Host $hostId " no es una opción valida"
+    Write-Host $hostId " no es una opcion valida"
     Write-Host "Pruebe alguna de las siguientes:"
     Write-Host "`t'gl'         - Conectarse a GlobalLogic"
     Write-Host "`t'wt'         - Conectarse a Ba*****co WT"
     Write-Host "`t'disconnect' - Desconectarse"
   }
+}
+
+# Se valida que la conexión se haya realizado con exito
+
+$state = &$cysco state
+if ($state -match ">> state: Connected") {
+  Write-Output "`nSe encuentra conectado!`n"
+} else {
+  Write-Output "Se encuentra desconectado, revise la configuracion de la vpn.`n"
 }
