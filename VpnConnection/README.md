@@ -21,10 +21,10 @@ Script generado para realizar el cambio de vpn de una forma mas fluida, dado que
   Abrir el archivo vpn.ps1 e indicar el valor del usuario y la contraseña tanto para gl como para wt.
 
   ```
-    $glUser = "***.***"
-    $glPass = "*******"
+    $glUser = "***********"
+    $glPass = "***********"
     $glUrl  = "vpn-crr.globallogic.com"
-    $wtUser = "*******"
-    $wtPass = "*******"
+    $wtUser = "***********"
+    $wtPass = "***********"
     $wtUrl  = "201.218.224.99"
   ```
